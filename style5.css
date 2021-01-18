@@ -228,6 +228,10 @@ a.article, a.article:hover {
 
 .facetitem {cursor: pointer;}
 
+.tags h4 {float:right !Important}
+
+.myInput {color:black !Important}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -260,10 +264,5 @@ a.article, a.article:hover {
     #sidebarCollapse.active span:last-of-type {
         transform: rotate(-45deg) translate(1px, -1px);
     }
-
-    .tags h4 {float:right !Important}
-
-
-    
 
 }
