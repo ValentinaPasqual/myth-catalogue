@@ -16,7 +16,7 @@ var defaults = {
   facetListContainer : '<ul class="list-unstyled collapse facetlist overflow-auto" id="<%= title.replace(" ", "") %>"><input type="text" placeholder="Search.." class="myInput" onkeyup="filterFunction(this)"></ul>',
   listItemTemplate   : '<li><div class="facetitem" id="<%= id %>"><%= name %> <span class=facetitemcount>(<%= count %>)</span></div></li>',
   bottomContainer    : '<div class=bottomline></div>',
-  orderByTemplate    : '<div class=orderby><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
+  orderByTemplate    : '<div class=orderby style="display:none"><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
                        '<li class=orderbyitem id=orderby_<%= key %>>'+
                        '<%= value %> </li> <% }); %></ul></div>',
   countTemplate      : '<div class=facettotalcount><%= count %> Results</div>',
