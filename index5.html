@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Collapsible sidebar using Bootstrap 4</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="style5.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+            <!-- Bootstrap core JavaScript -->
+    
+        
+        <!--boostrap-->
+        <link href="homepage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="homepage/css/full-width-pics.css" rel="stylesheet">
+        <!-- <script src="https://code.jquery.com/jquery-1.6.2.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        --> 
+    
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Bootstrap Sidebar</h3>
+            </div>
+            <ul class="list-unstyled components" id=facets>
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+                <div class="cards-wrapper col-12" style="max-width: 100%!important;">
+                <div class="card-columns">
+                <div id=results ></div>
+                </div>
+            </div> 
+            </div>
+        </div>
+    </div>         
+
+
+    <!-- things from faceted search -->
+    <script src="homepage/vendor/jquery/jquery.min.js"></script>
+    <script src="homepage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="dependencies/jquery-1.6.2.js"></script>
+    <script src="json_records/cat_ex.js"></script>
+    <script src="dependencies/underscore-1.1.7.js"></script>
+    <script src="facetedsearch.js"></script>
+
+    <script type="text/javascript">
+        var jQuery_faceted = $.noConflict(true);
+    </script>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+
+    <script type="text/javascript">
+        var jQuery_sidebar = $.noConflict(true);
+    </script>
+
+
+<script>
+
+  function filterFunction(input) {
+  var filter, ul, li, a, i;
+  filter = input.value.toUpperCase();
+  div = input.parentElement;
+  console.log(div)
+  a = div.getElementsByClassName("facetitem");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+  }
+
+  jQuery_faceted(function(){
+        for (var x in example_items) {
+          // example_items[x]["periodLabel"] = example_items[x]["periodLabel"].split('@')
+           example_items[x]["keywords"] = example_items[x]["keywords"].split('@')
+           example_items[x]["categs_labels"] = example_items[x]["categs_labels"].split('@')
+           example_items[x]["works_labels"] = example_items[x]["works_labels"].split('@')
+           example_items[x]["cits_labels"] = example_items[x]["cits_labels"].split('@')
+           example_items[x]["works_author_label"] = example_items[x]["works_author_label"].split('@') 
+           // example_items[x]["works_types_label"] = example_items[x]["works_types_label"].split('@') 
+        } 
+        var item_template = 
+          '<div class="card p-3" style="box-sizing: inherit;"><img class="card-img-top box-sizing:inherit" src="<%= obj.img %>"><div class="card-body">' + 
+        '<h5 class="card-title"><%= obj.title %></h5>' +
+        '<p class="tags">' + 
+             '<br> <% if (obj.item) {  %> <b>Item Reference:</b> <%= obj.item %> <% } %>' +
+             '<h4>Factual Data</h4><div class="factual_data"><% if (obj.item_author_label) {  %> <b>Author:</b> <%= obj.item_author_label %><a href="<%= obj.item_author_viaf %>" target="_blank"> VIAF</a><% } %>' +
+             '<br><% if (obj.item_type_label){  %> <b>Typology:</b> <%= obj.item_type_label %> <% } %>' +
+             '<br><% if (obj.keywords) {  %> <b>Keywords:</b> <%= obj.keywords %> <% } %>' +
+             '<br> <% if (obj.collocazione_label) {  %><b>Collocation:</b> <%= obj.collocazione_label %>, <%= obj.citta_label %> (<%= obj.nazione_label %>)  <% } %>' +
+             '<br> <% if (obj.periodo_label) {  %><b>Period:</b> <%= obj.periodo_label %>, <%= obj.secolo_label %> (<%= obj.data_label %>)  <% } %> </div>' +
+             '<h4>Assertion</h4><div class="assertion"><% if (obj.categs_labels) {  %> <b>Categories:</b> <%= obj.categs_labels %> <% } %>' + 
+             '<br> <% if (obj.cits_labels) {  %> <b>Classical References:</b> <%= obj.cits_labels %><a href="<%= obj.perseus_links %>" target="_blank"> Perseus </a><% } %>' +
+             '<br> <% if (obj.works_labels) {  %>  <b>Other References:</b> <%= obj.works_labels %><a href="<%= obj.work_viafs %>" target="_blank"> VIAF </a><br> <% } %> </div>' +
+             '<h4>Provenance</h4><div class="provenance"><% if (obj.int_type_label) {  %> <b>Interpretation Type:</b> <%= obj.int_type_label %> <% } %>' +
+             '<br> <% if (obj.int_crit_label) {  %> <b>Interpretation Criterion:</b> <%= obj.int_crit_label %> <% } %>' +
+             '<br> <% if (obj.int_person_label) {  %> <b>Interpretation Performer:</b> <%= obj.int_person_label %> <% } %></div>' +
+             '</p> <a style="display:none" href="<%= obj.item %>" class="btn btn-primary">Go somewhere</a>' +
+             '' + 
+             '</div></div>' ;
+
+        settings = { 
+          items            : example_items,
+          facets           : { 
+                              'collocazione_label': 'Collocation',
+                              'periodo_label': 'Period',   
+                              'keywords': 'Keywords' ,
+                              'item_type_label': 'Type',
+                              'item_author_label':'Author' , 
+                              'categs_labels' : 'Category', 
+                              'works_types_labels' : 'Reference Type' , 
+                              'works_labels' : 'References' , 
+                              'works_author_label' : 'References Authors', 
+                              'int_type_label' : 'Interpretation Type', 
+                              'int_crit_label' : 'Interpretation Criterion',
+                              'int_person_label' : 'Interpretation Performer'
+                            },  
+          resultSelector   : '#results',
+          facetSelector    : '#facets',
+          resultTemplate   : item_template,
+          paginationCount  : 50,
+          orderByOptions   : {'firstname': 'First name', 'lastname': 'Last name', 'category': 'Category', 'RANDOM': 'Random'},
+          facetSortOption  : {'continent': ["North America", "South America"]}
+        }   
+
+        // use them!
+        jQuery_faceted.facetelize(settings);
+
+      });      
+      // Most of the time I suppose you would use jQuery to get your data; 
+          /*
+            $.getJSON( "http:/example.com", function(data){ 
+              $.facetelize....
+            });
+          */
+
+
+    </script>
+
+    <script type="text/javascript">
+        jQuery_sidebar(document).ready(function () {
+            jQuery_sidebar('#sidebarCollapse').on('click', function () {
+                jQuery_sidebar('#sidebar').toggleClass('active');
+                jQuery_sidebar(this).toggleClass('active');
+            });
+        });
+    </script>
+
+
+
+</body>
+
+</html>
