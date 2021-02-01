@@ -12,15 +12,15 @@ var defaults = {
   resultSelector     : '#results',
   facetSelector      : '#facets',
   facetContainer     : '<li class="active" id=<%= id %>></li>',
-  facetTitleTemplate : '<a href="#<%= title.replace(" ", "")%>" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><%= title %></a>',
+  facetTitleTemplate : '<a href="#<%= title.replace(" ", "")%>" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><% if (obj.title === \'Keywords\' || obj.title === \'Collocation\' || obj.title === \'Period\' || obj.title === \'Type\' || obj.title === \'Author\'){  %><span class="badge badge-warning">Factual Data</span> <%= title %><% } %><% if (obj.title === \'Category\' || obj.title === \'Reference Type\' || obj.title === \'References\' || obj.title === \'References Authors\'){%> <span class="badge badge-info">Assertion</span> <%= title %><% } %><% if (obj.title === \'Interpretation Performer\' || obj.title === \'Interpretation Criterion\' || obj.title === \'Interpretation Type\'){%> <span class="badge badge-danger">Provenance</span> <%= title %><% } %></a>',
   facetListContainer : '<ul class="list-unstyled collapse facetlist overflow-auto" id="<%= title.replace(" ", "") %>"><input type="text" placeholder="Search.." class="myInput" onkeyup="filterFunction(this)"></ul>',
-  listItemTemplate   : '<li><div class="facetitem" id="<%= id %>"><%= name %> <span class=facetitemcount>(<%= count %>)</span></div></li>',
-  bottomContainer    : '<div class=bottomline></div>',
+  listItemTemplate   : '<li><div class="facetitem pl-3 pt-1 pb-1" id="<%= id %>"> <% if ( name != "") {%> <%=name%> <span class=facetitemcount>(<%= count %>)</span><%}%> </div></li>',
+  bottomContainer    : '<div class="bottomline p-2"></div>',
   orderByTemplate    : '<div class=orderby style="display:none"><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
                        '<li class=orderbyitem id=orderby_<%= key %>>'+
                        '<%= value %> </li> <% }); %></ul></div>',
-  countTemplate      : '<div class=facettotalcount><%= count %> Results</div>',
-  deselectTemplate   : '<div class=deselectstartover><button class="btn btn-light">Deselect all filters</button></div>',
+  countTemplate      : '<span class=facettotalcount><%= count %> Results</span>',
+  deselectTemplate   : '<span class=deselectstartover><button class="btn btn-outline-dark">Deselect all filters</button></span>',
   resultTemplate     : '<div class=facetresultbox><%= name %></div>',
   noResults          : '<div class=results>Sorry, but no items match these criteria</div>',
   orderByOptions     : {'a': 'by A', 'b': 'by B', 'RANDOM': 'by random'},
@@ -28,7 +28,7 @@ var defaults = {
                          orderBy : false,
                          filters : {}
                        },
-  showMoreTemplate   : '<a id=showmorebutton>Show more</a>',
+  showMoreTemplate   : '<a id="showmorebutton">Show more</a>',
   enablePagination   : true,
   paginationCount    : 20
 }
@@ -214,6 +214,7 @@ function createFacetUI() {
 
   
   $(settings.facetSelector).html("");
+  console.log($(settings.facetSelector).html(""))
   _.each(settings.facets, function(facettitle, facet) {
     var facetHtml     = $(containertemplate({id: facet}));
     var facetItem     = {title: facettitle};
@@ -234,14 +235,16 @@ function createFacetUI() {
     $(settings.facetSelector).append(facetHtml);
   });
   // add the click event handler to each facet item:
+
   $('.facetitem').click(function(event){
     var filter = getFilterById(this.id);
     toggleFilter(filter.facetname, filter.filtername);
     $(settings.facetSelector).trigger("facetedsearchfacetclick", filter);
-    order();
+    //order();
     updateFacetUI();
     updateResults();
   });
+
   // Append total result count
   var bottom = $(settings.bottomContainer);
   countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
@@ -250,7 +253,8 @@ function createFacetUI() {
   var ordertemplate = _.template(settings.orderByTemplate);
   var itemHtml = $(ordertemplate({'options': settings.orderByOptions}));
   $(bottom).append(itemHtml);
-  $(settings.facetSelector).append(bottom);
+  $(settings.facetSelector).prepend('<hr>');
+  $(settings.facetSelector).prepend(bottom);
   $('.orderbyitem').each(function(){
     var id = this.id.substr(8);
     if (settings.state.orderBy == id) {
@@ -352,3 +356,52 @@ function showMoreResults() {
 }
 
 })();
+
+
+/////////////////////////////////////////// PERSONALISATION PART //////////////////////////////////////////////////////////////////
+
+// it creates an array of arrays with the additional info about the list of works of each card
+
+function works_UI(obj) {
+  works_metadata_array = []
+  if (obj.item && obj.works) {
+    works_uri_list = obj.works.split('@')
+  _.each(works_uri_list, function(work, i) {
+    _.each(work_ex, function(work_metadata, i2) {
+      if (work == work_metadata.work ){
+        new_array = []
+        new_array.push(work_metadata.work, work_metadata.work_label, work_metadata.work_viaf, work_metadata.work_author_viaf, work_metadata.work_author_label, work_metadata.work_type_label) //manca
+        works_metadata_array.push(new_array)
+      }
+    })
+  })}
+  return works_metadata_array}
+
+    //<%_.each(perseus_text(obj), function(x, i){<div class="collapse citsnippet" id="<%=x[3]%>"><div class="card citsnippet"><div class="card-header"><p>Go to Perseus resource of this reference<a href=<%=x[0]%> target=__blank><img src="http://www.perseus.tufts.edu/hopper/favicon.ico" target="__blank"></img></a></p></div><div class="card-body overflow-auto" style="max-height:20rem"><p>&quot;<%=x[2]%>&quot;</p></div></div></div><%})}%>
+  //console.log(works_metadata_array)
+
+function long_metadata_handler(long_str, item) {
+  // if len > 100:
+  var shown_text = long_str.substring(0,100)
+  var hidden_text = long_str.substring(100, long_str.lenght)
+  var result_string = shown_text + '<span id="dots' + item.replace('https://dharc-org.github.io/mythologiae/item/', '_') + '">...</span>' + '<span id="more' + item.replace('https://dharc-org.github.io/mythologiae/item/', '_') + '" style="display:none">' + hidden_text + '</span>'
+  return result_string
+}
+
+function showmore_metadata(item) {
+  var dots = document.getElementById("dots" + item.replace('https://dharc-org.github.io/mythologiae/item/', '_'));
+  var moreText = document.getElementById("more" + item.replace('https://dharc-org.github.io/mythologiae/item/', '_'));
+  var btnText = document.getElementById("showmoremetadata" + item.replace('https://dharc-org.github.io/mythologiae/item/', '_'));
+
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less"; 
+    moreText.style.display = "inline";
+  }
+}
+
